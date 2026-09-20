@@ -1,14 +1,13 @@
 # Novation Launch Control XL2 — 4-Deck Traktor Mapping
 
-A personal Novation Launch Control XL2 mapping for running four decks in Traktor Pro from
-one 8×3 grid of knobs, faders and pads. Every physical control does more than one job:
-holding Device, Mute, Solo or Record Arm changes what the knobs and the 16-pad grid control,
-and a second full page — unlocked with Record Arm + Track Select — turns the same pads into
-hotcues.
+Novation Launch Control XL2 mapping for 4-deck Traktor Pro.
 
-**[Open the interactive guide](https://doms-17.github.io/novation-lcxl-traktor-mapping/)**
-to click through every page and modifier and see exactly what each control does at any
-given moment.
+- Controls 4 decks at once from a single 8×3 grid of knobs, faders and pads
+- Device, Mute, Solo and Record Arm modifiers remap what the knobs and 16-pad grid do
+- A second page (Record Arm + Track Select) turns the pads into hotcues
+- Pad LEDs reflect live deck state: playing, headphone cue, active loop size, key lock
+
+**[Try the interactive guide](https://doms-17.github.io/novation-lcxl-traktor-mapping/)**
 
 ## Files
 
