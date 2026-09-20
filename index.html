@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch Control XL2 — Traktor</title>
+<meta name="description" content="Interactive guide to the custom 4-deck Novation Launch Control XL2 mapping for Traktor Pro">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f2ee;
+    --surface: #ffffff;
+    --surface-soft: #eceae4;
+    --ink: #17191b;
+    --ink-soft: #5a5f63;
+    --ink-faint: #8b9094;
+    --border: #d9d6cf;
+    --panel: #1b1d1f;
+    --panel-face: #26292c;
+    --panel-face-mapped: #2e3236;
+    --panel-line: #3a3d40;
+    --panel-ink: #f2f0eb;
+    --panel-ink-soft: #82888c;
+    --accent-default: #c1531e;
+    --accent-fx: #8a4fc9;
+    --deckA: #e0812a;
+    --deckB: #4caf54;
+    --deckC: #e05252;
+    --deckD: #d9b022;
+    --shadow: 0 1px 2px rgba(20,18,14,.06), 0 8px 24px -12px rgba(20,18,14,.18);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d0e10;
+      --surface: #17191b;
+      --surface-soft: #1e2022;
+      --ink: #f1efe9;
+      --ink-soft: #b2b6b8;
+      --ink-faint: #797f82;
+      --border: #2c2f31;
+      --panel: #151617;
+      --panel-face: #202224;
+      --panel-face-mapped: #26292c;
+      --panel-line: #34373a;
+      --panel-ink: #f2f0eb;
+      --panel-ink-soft: #82888c;
+      --accent-default: #ff9a56;
+      --accent-fx: #b98bef;
+      --deckA: #ff9a52;
+      --deckB: #5ecb69;
+      --deckC: #ff6b6b;
+      --deckD: #e8c344;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 30px -14px rgba(0,0,0,.6);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d0e10;
+    --surface: #17191b;
+    --surface-soft: #1e2022;
+    --ink: #f1efe9;
+    --ink-soft: #b2b6b8;
+    --ink-faint: #797f82;
+    --border: #2c2f31;
+    --panel: #151617;
+    --panel-face: #202224;
+    --panel-face-mapped: #26292c;
+    --panel-line: #34373a;
+    --panel-ink: #f2f0eb;
+    --panel-ink-soft: #82888c;
+    --accent-default: #ff9a56;
+    --accent-fx: #b98bef;
+    --deckA: #ff9a52;
+    --deckB: #5ecb69;
+    --deckC: #ff6b6b;
+    --deckD: #e8c344;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 30px -14px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    padding-inline: 20px;
+    padding-block: 28px 60px;
+    max-width: 1180px;
+    margin: 0 auto;
+    line-height: 1.45;
+  }
+  h1, h2, h3 { font-family: "IBM Plex Mono", ui-monospace, monospace; text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+  header.top { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; margin-bottom: 36px; }
+  header.top .eyebrow {
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent-default); font-weight: 600;
+  }
+  header.top h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 700; max-width: 40ch; }
+
+  /* ---- controls bar ---- */
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px 26px; margin: 0 0 28px; box-shadow: var(--shadow);
+  }
+  .control-group { flex: 1 1 260px; display: flex; flex-direction: column; gap: 12px; justify-content: flex-start; align-items: flex-start; }
+  .control-group .label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-faint); font-weight: 600; }
+  .control-divider { width: 1px; align-self: stretch; background: var(--border); flex: none; }
+  @media (max-width: 620px) {
+    .control-divider { display: none; }
+  }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    font-family: "IBM Plex Mono", monospace; font-size: 12.5px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--surface-soft); color: var(--ink-soft);
+    border-radius: 999px; padding: 8px 15px; cursor: pointer; transition: background .12s, color .12s, border-color .12s;
+  }
+  .pill:hover { border-color: var(--ink-faint); }
+  .pill[aria-pressed="true"] { background: var(--accent-default); color: #fff; border-color: var(--accent-default); }
+  .pill[aria-pressed="true"].fx { background: var(--accent-fx); border-color: var(--accent-fx); }
+  .pills-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .page-readout { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); border-left: 1px solid var(--border); padding-left: 12px; }
+
+  /* ---- device panel (pure HTML/CSS, no SVG — labels never get clipped) ---- */
+  figure.device { margin: 0 0 32px; }
+  .device-wrap {
+    background: var(--panel); border-radius: 18px; padding: 20px 16px; box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+  .panel-layout { display: flex; gap: 18px; min-width: 700px; align-items: flex-start; }
+  .panel-main { flex: 1; display: grid; grid-template-columns: 68px repeat(8, minmax(60px, 1fr)); row-gap: 16px; column-gap: 8px; align-items: center; }
+  .row-label { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--panel-ink-soft); text-align: right; padding-right: 4px; align-self: center; }
+
+  .deck-flag { font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 700; text-align: center; }
+  .deck-flag .bar { height: 3px; border-radius: 2px; margin-top: 3px; }
+
+  .knob-cell { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  .knob-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--panel-face); border: 1.5px solid var(--panel-line); position: relative; flex: none; }
+  .knob-dot::after { content: ""; position: absolute; top: 2px; left: 50%; width: 2px; height: 7px; background: var(--accent-default); transform: translateX(-50%); border-radius: 1px; }
+  .ctl-text { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--panel-ink); line-height: 1.25; overflow-wrap: break-word; }
+
+  .fader-cell { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  .fader-track { width: 18px; height: 92px; border-radius: 6px; background: var(--panel-face); border: 1.5px solid var(--panel-line); position: relative; flex: none; }
+  .fader-thumb { position: absolute; left: -4px; width: 26px; height: 9px; border-radius: 3px; background: var(--accent-default); }
+
+  .btn-chip {
+    min-height: 40px; display: flex; align-items: center; justify-content: center; text-align: center;
+    border-radius: 9px; background: var(--panel-face); border: 1.5px solid var(--panel-line);
+    padding: 6px 5px; font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--panel-ink); line-height: 1.25;
+    overflow-wrap: break-word;
+  }
+  .btn-chip.mapped { background: var(--panel-face-mapped); }
+  .btn-chip.empty { color: var(--panel-ink-soft); font-style: italic; }
+
+  .side-col { width: 128px; display: flex; flex-direction: column; gap: 10px; flex: none; }
+  .side-item {
+    border-radius: 10px; background: var(--panel-face); border: 1.5px solid var(--panel-line);
+    padding: 8px 8px; text-align: center;
+  }
+  .side-item .ctl-text { display: block; }
+  .side-item .side-sub { font-family: "IBM Plex Mono", monospace; font-size: 8px; letter-spacing: .04em; color: var(--panel-ink-soft); margin-top: 3px; display: block; }
+  .side-item.clickable { cursor: pointer; transition: border-color .12s, background .12s; }
+  .side-item.clickable:hover { border-color: var(--panel-ink-soft); }
+  .side-item.active { border-color: var(--accent-default); border-width: 2px; background: var(--panel-face-mapped); }
+  .side-item.active .ctl-text { font-weight: 700; }
+  .side-gap { height: 4px; }
+
+
+  /* ---- legend ---- */
+  .legend {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px;
+    margin: 0;
+  }
+  .legend .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;
+  }
+  .legend .card h3 { font-size: 13px; margin-bottom: 6px; }
+  .legend .card p { font-size: 13px; color: var(--ink-soft); margin: 0; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <span class="eyebrow">Controller guide · Traktor Pro</span>
+  <h1>Novation Launch Control XL2: 4 Deck Traktor Mapping</h1>
+</header>
+
+<div class="controls">
+  <div class="control-group">
+    <span class="label">Page (Record Arm + Track Select ◀/▶)</span>
+    <div class="pills-row">
+      <div class="pills" id="page-pills">
+        <button class="pill" data-page="default" aria-pressed="true">Default</button>
+        <button class="pill fx" data-page="fx" aria-pressed="false">Hotcue (FX)</button>
+      </div>
+      <span class="page-readout" id="page-readout">Default page</span>
+    </div>
+  </div>
+  <div class="control-divider"></div>
+  <div class="control-group">
+    <span class="label">Side button held down</span>
+    <div class="pills" id="mod-pills">
+      <button class="pill" data-mod="base" aria-pressed="true">None</button>
+      <button class="pill" data-mod="device" aria-pressed="false">Device</button>
+      <button class="pill" data-mod="mute" aria-pressed="false">Mute</button>
+      <button class="pill" data-mod="solo" aria-pressed="false">Solo</button>
+      <button class="pill" data-mod="recordarm" aria-pressed="false">Record Arm</button>
+    </div>
+  </div>
+</div>
+
+<figure class="device">
+  <div class="device-wrap">
+    <div class="panel-layout">
+      <div class="panel-main" id="panel-main"></div>
+      <div class="side-col" id="side-col"></div>
+    </div>
+  </div>
+</figure>
+
+<div class="legend">
+  <div class="card">
+    <h3>How to use it</h3>
+    <p>Switch page and button above, or click Device/Mute/Solo/Record Arm right on the diagram: the labels on the 16 buttons (and the two Mid/FX knobs) update themselves.</p>
+  </div>
+  <div class="card">
+    <h3>Button LEDs</h3>
+    <p>Play lights up while the deck is playing, Headphone Cue while that channel is being pre-listened in the headphones, the active loop-size button stays lit, Key Lock stays lit while the pitch is locked.</p>
+  </div>
+  <div class="card">
+    <h3>Hotcue page</h3>
+    <p>For now it only lives on Solo (set/jump to hotcue) and Record Arm (delete hotcue). Device and Mute on this page aren't mapped yet — free room for later.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var DECKS = ["A","B","C","D"];
+  var DECK_COLOR_VAR = {A:"--deckA", B:"--deckB", C:"--deckC", D:"--deckD"};
+
+  // ---------- static (page/modifier independent) ----------
+  var KNOB_ROW1 = { left: function(d){ return "EQ High " + d; }, right: function(d){ return "Gain " + d; } };
+  var KNOB_ROW3 = { left: function(d){ return "EQ Low " + d; },  right: function(d){ return "Key Change " + d; } };
+  var KNOB_ROW2 = {
+    base:   { left: function(d){ return "EQ Mid " + d; },  right: function(d){ return "FX Param " + d; } },
+    device: { left: function(d){ return "Mid-Low " + d; }, right: function(d){ return "Select FX " + d; } }
+  };
+  var FADER = { left: function(d){ return "Volume " + d; }, right: function(d){ return "Tempo " + d; } };
+
+  // ---------- button grid: 4 groups (A,B,C,D), 4 positions each ----------
+  var DEFAULT_PAGE = {
+    base:      ["Play","Cue","Jog Backward","Jog Forward"],
+    device:    ["Load Track","Unload Track","◀ 4 Bars","▶ 4 Bars"],
+    mute:      ["Sync","Master","Key Lock","Headphone Cue"],
+    solo:      ["Loop 4","Loop 8","Loop 16","Loop 32"],
+    recordarm: ["Move To Start","Reset Pitch",null,null]
+  };
+  var RECORDARM_EXTRA = { // only row2 groups (C,D) use positions 3-4
+    C: ["Pitch Range 16%","Pitch Range 100%"],
+    D: ["Select Channel A→D","Browser Mode"]
+  };
+  var FX_PAGE = {
+    base:      [null,null,null,null],
+    device:    [null,null,null,null],
+    mute:      [null,null,null,null],
+    solo:      ["Set Hotcue 1","Set Hotcue 2","Set Hotcue 3","Set Hotcue 4"],
+    recordarm: ["Delete Hotcue 1","Delete Hotcue 2","Delete Hotcue 3","Delete Hotcue 4"]
+  };
+
+  var SEND_SELECT = {
+    base:   { up: "Folder Up",     down: "Folder Down" },
+    device: { up: "Expand Folder", down: "Collapse Folder" }
+  };
+  var TRACK_SELECT = {
+    base:   { left: "Previous Track", right: "Next Track" },
+    device: { left: "Jump ~10 Tracks", right: "Jump ~10 Tracks" }
+  };
+
+  var state = { page: "default", modifier: "base" };
+
+  // ---------- helpers ----------
+  function h(tag, attrs, children){
+    var e = document.createElement(tag);
+    for (var k in attrs){
+      if (k === "class") e.className = attrs[k];
+      else if (k === "text") e.textContent = attrs[k];
+      else e.setAttribute(k, attrs[k]);
+    }
+    (children || []).forEach(function(c){ e.appendChild(c); });
+    return e;
+  }
+
+  // ---------- build the static skeleton once ----------
+  function buildSkeleton(){
+    var main = document.getElementById("panel-main");
+    main.innerHTML = "";
+
+    // deck flags row (row label blank + 8 deck letters)
+    main.appendChild(h("div", {}));
+    for (var i = 0; i < 8; i++){
+      var deck = DECKS[i % 4];
+      var flag = h("div", {class:"deck-flag", style:"color:var(" + DECK_COLOR_VAR[deck] + ")"});
+      flag.appendChild(document.createTextNode(deck));
+      flag.appendChild(h("div", {class:"bar", style:"background:var(" + DECK_COLOR_VAR[deck] + ")"}));
+      main.appendChild(flag);
+    }
+
+    addKnobRow(main, "Send A", "row1");
+    addKnobRow(main, "Send B", "row2");
+    addKnobRow(main, "Pan/Dev", "row3");
+    addFaderRow(main);
+    addButtonRow(main, "Track Focus", "A", "B", 1);
+    addButtonRow(main, "Track Ctrl", "C", "D", 2);
+  }
+
+  function addKnobRow(main, rowLabel, rowKey){
+    main.appendChild(h("div", {class:"row-label", text:rowLabel}));
+    for (var i = 0; i < 8; i++){
+      var cell = h("div", {class:"knob-cell", id:"knob-" + rowKey + "-" + i});
+      cell.appendChild(h("div", {class:"knob-dot"}));
+      cell.appendChild(h("div", {class:"ctl-text"}));
+      main.appendChild(cell);
+    }
+  }
+
+  function addFaderRow(main){
+    main.appendChild(h("div", {class:"row-label", text:"Fader"}));
+    for (var i = 0; i < 8; i++){
+      var side = i < 4 ? "left" : "right";
+      var deck = DECKS[i % 4];
+      var cell = h("div", {class:"fader-cell"});
+      var track = h("div", {class:"fader-track"});
+      var thumbTop = side === "left" ? 5 : 41; // volume fader pinned near max (top), tempo fader centered
+      track.appendChild(h("div", {class:"fader-thumb", style:"top:" + thumbTop + "px"}));
+      cell.appendChild(track);
+      cell.appendChild(h("div", {class:"ctl-text", text: FADER[side](deck)}));
+      main.appendChild(cell);
+    }
+  }
+
+  function addButtonRow(main, rowLabel, groupLeft, groupRight, rowNum){
+    main.appendChild(h("div", {class:"row-label", text:rowLabel}));
+    [groupLeft, groupRight].forEach(function(deckKey){
+      for (var p = 1; p <= 4; p++){
+        var chip = h("div", {class:"btn-chip", id:"btn-" + deckKey + "-" + p});
+        main.appendChild(chip);
+      }
+    });
+  }
+
+  function buildSideCol(){
+    var col = document.getElementById("side-col");
+    col.innerHTML = "";
+
+    col.appendChild(sideItem("tag-templates", "Templates", "User", false));
+    col.appendChild(sideItem("tag-sendup", SEND_SELECT.base.up, "Send Select ▲", false));
+    col.appendChild(sideItem("tag-senddown", SEND_SELECT.base.down, "Send Select ▼", false));
+    col.appendChild(sideItem("tag-trackleft", TRACK_SELECT.base.left, "Track Select ◀", false));
+    col.appendChild(sideItem("tag-trackright", TRACK_SELECT.base.right, "Track Select ▶", false));
+    col.appendChild(h("div", {class:"side-gap"}));
+
+    var modBtns = [
+      {key:"device", label:"Device"},
+      {key:"mute", label:"Mute"},
+      {key:"solo", label:"Solo"},
+      {key:"recordarm", label:"Record Arm"}
+    ];
+    modBtns.forEach(function(m){
+      var item = sideItem("mod-btn-" + m.key, m.label, null, true);
+      item.dataset.modkey = m.key;
+      item.addEventListener("click", function(){
+        var key = this.dataset.modkey;
+        setModifier(key === state.modifier ? "base" : key);
+      });
+      col.appendChild(item);
+    });
+  }
+
+  function sideItem(id, label, sub, clickable){
+    var item = h("div", {class:"side-item" + (clickable ? " clickable" : ""), id:id, tabindex: clickable ? "0" : null});
+    item.appendChild(h("span", {class:"ctl-text", text:label}));
+    if (sub) item.appendChild(h("span", {class:"side-sub", text:sub}));
+    return item;
+  }
+
+  // ---------- state + render ----------
+  function setPage(p){ state.page = p; render(); syncControls(); }
+  function setModifier(m){ state.modifier = m; render(); syncControls(); }
+
+  function syncControls(){
+    document.querySelectorAll("#page-pills .pill").forEach(function(b){
+      b.setAttribute("aria-pressed", b.dataset.page === state.page ? "true" : "false");
+    });
+    document.querySelectorAll("#mod-pills .pill").forEach(function(b){
+      b.setAttribute("aria-pressed", b.dataset.mod === state.modifier ? "true" : "false");
+    });
+    document.querySelectorAll(".side-item.clickable").forEach(function(b){
+      b.classList.toggle("active", b.dataset.modkey === state.modifier);
+    });
+    document.getElementById("page-readout").textContent = state.page === "default" ? "Default page" : "Hotcue page (FX)";
+  }
+
+  function render(){
+    var row2State = state.modifier === "device" ? KNOB_ROW2.device : KNOB_ROW2.base;
+    fillKnobRow("row1", KNOB_ROW1);
+    fillKnobRow("row2", row2State);
+    fillKnobRow("row3", KNOB_ROW3);
+    fillButtons();
+    fillSideLabels();
+  }
+
+  function fillKnobRow(rowKey, spec){
+    for (var i = 0; i < 8; i++){
+      var side = i < 4 ? "left" : "right";
+      var deck = DECKS[i % 4];
+      var cell = document.getElementById("knob-" + rowKey + "-" + i);
+      if (!cell) continue;
+      cell.querySelector(".ctl-text").textContent = spec[side](deck);
+    }
+  }
+
+  function fillButtons(){
+    var page = state.page === "default" ? DEFAULT_PAGE : FX_PAGE;
+    var labels = page[state.modifier] || [null,null,null,null];
+    DECKS.forEach(function(deckKey){
+      for (var p = 1; p <= 4; p++){
+        var chip = document.getElementById("btn-" + deckKey + "-" + p);
+        if (!chip) continue;
+        var label = labels[p-1];
+        if (label === null && state.modifier === "recordarm" && state.page === "default" && RECORDARM_EXTRA[deckKey]) {
+          label = RECORDARM_EXTRA[deckKey][p-3] || null;
+        }
+        chip.classList.remove("mapped", "empty");
+        chip.style.borderColor = "";
+        if (label) {
+          chip.textContent = label;
+          chip.classList.add("mapped");
+          chip.style.borderColor = "var(" + DECK_COLOR_VAR[deckKey] + ")";
+        } else {
+          chip.textContent = "—";
+          chip.classList.add("empty");
+        }
+      }
+    });
+  }
+
+  function fillSideLabels(){
+    var ss = state.modifier === "device" ? SEND_SELECT.device : SEND_SELECT.base;
+    var ts = state.modifier === "device" ? TRACK_SELECT.device : TRACK_SELECT.base;
+    document.querySelector("#tag-sendup .ctl-text").textContent = ss.up;
+    document.querySelector("#tag-senddown .ctl-text").textContent = ss.down;
+    document.querySelector("#tag-trackleft .ctl-text").textContent = ts.left;
+    document.querySelector("#tag-trackright .ctl-text").textContent = ts.right;
+  }
+
+  // ---------- init ----------
+  buildSkeleton();
+  buildSideCol();
+  render();
+  syncControls();
+
+  document.getElementById("page-pills").addEventListener("click", function(e){
+    var b = e.target.closest(".pill"); if (!b) return;
+    setPage(b.dataset.page);
+  });
+  document.getElementById("mod-pills").addEventListener("click", function(e){
+    var b = e.target.closest(".pill"); if (!b) return;
+    setModifier(b.dataset.mod);
+  });
+})();
+</script>
+</body>
+</html>
