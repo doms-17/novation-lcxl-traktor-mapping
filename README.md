@@ -9,3 +9,8 @@ on which of the four side buttons (Device / Mute / Solo / Record Arm) is held do
 
 Open `index.html` in any browser — it's a single self-contained static page (HTML/CSS/JS,
 no build step, no dependencies besides Google Fonts).
+
+## Mapping file
+
+`traktor_4decks.tsi` is the actual Traktor Controller Manager mapping file — import it via
+Traktor Preferences → Controller Manager → Import to use it as-is.
